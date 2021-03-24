@@ -1,1 +1,83 @@
-<p>home-page works!</p>
+<div class="container">
+    <button type="button addButton" class="float-right btn btn-primary">
+        <i class="fa fa-plus" (click)="openModal(addProductModal)"></i>
+    </button>
+    <div class="row my-5">
+        <div class="col-4 px-0 border mb-5" *ngFor="let category of categories">
+            <span routerLink="{{category}}">
+                <img class="p-2" style="height: 200px; width: 350px;" src="{{baseUrl}}/{{category}}.jpg" alt="">
+                <p class="text-center text-bold">{{category}}</p>
+            </span>
+        </div>
+    </div>
+</div>
+
+<ng-template #addProductModal>
+    <div class="modal-body bg-gray">
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="px-3">
+                    <div class="form-group row">
+                        <label class="text-gray">Name</label>
+                        <input formControlName="product_name" class="form-control validation-field" type="text">
+                        <small class="text-danger"
+                            *ngIf="form.controls.product_name.touched && form.controls.product_name.errors?.required">
+                            Required
+                        </small>
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Description</label>
+                        <input formControlName="product_description" class="form-control validation-field" type="text">
+                        <small class="text-danger"
+                            *ngIf="form.controls.product_description.touched && form.controls.product_description.errors?.required">
+                            Required
+                        </small>
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Category</label>
+                        <select [(ngModel)]="selectedType" class="form-control  validation-field input-lg" formControlName="product_category">
+                            <option>Select Category</option>
+                            <option *ngFor='let category of categories' [value]="category">
+                                {{category}}
+                            </option>
+                            <small class="text-danger"
+                                *ngIf="form.controls.product_category.touched && form.controls.product_category.errors?.required">
+                                Required
+                            </small>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Meta Data</label>
+                        <input formControlName="product_meta" class="form-control validation-field" type="text">
+                        <small class="text-danger"
+                            *ngIf="form.controls.product_meta.touched && form.controls.product_meta.errors?.required">
+                            Required
+                        </small>
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Image URL</label>
+                        <input formControlName="product_url" class="form-control validation-field" type="text">
+                        <small class="text-danger"
+                            *ngIf="form.controls.product_url.touched && form.controls.product_url.errors?.required">
+                            Required
+                        </small>
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Varient</label>
+                        <input formControlName="product_varient" class="form-control validation-field" type="text">
+                        <small class="text-danger"
+                            *ngIf="form.controls.product_varient.touched && form.controls.product_varient.errors?.required">
+                            Required
+                        </small>
+                    </div>
+                    <div class="col-12 bg-white text-center py-1 row">
+                        <button [disabled]="!form.valid" class="btn btn-success mr-1" type="submit">
+                            Add
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>

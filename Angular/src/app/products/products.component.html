@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4 p-0 mt-5" *ngFor="let product of products">
+            <i class="fa fa-trash float-right mr-2 text-center fa-2x" (click)="deleteProduct(product)"></i>
+            <span routerLink="{{product.p_name}}">
+                <img style="height: 250px;" class="w-100" src="{{product?.p_image}}">
+                <strong>{{product?.p_name}}</strong>
+                <p> {{product?.p_description}}</p>
+                <div class="border border-dark m-1 w-25 d-inline"
+                    *ngFor="let varient of product?.p_Varient;let i=index">
+                    <span class="mx-1">{{varient?.price}}
+                        {{varient?.color}}
+                    </span>
+                </div>
+            </span>
+
+        </div>
+    </div>
+</div>
